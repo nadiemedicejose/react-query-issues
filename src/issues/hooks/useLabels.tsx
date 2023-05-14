@@ -13,6 +13,9 @@ export const useLabels = () => {
     const labelsQuery = useQuery(
         ['labels'],
         getLabels,
+        {
+            staleTime: 1000 * 60 * 60, // Keep data fresh up to 1hr
+        }
     );
 
     return {
