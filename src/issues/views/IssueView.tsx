@@ -13,7 +13,7 @@ export const IssueView = () => {
   const params = useParams();
   const { id = '0' } = params;
 
-  const { issueQuery } = useIssue(+id);
+  const { issueQuery, commentsQuery } = useIssue(+id);
 
   // Loading Icon
   if (issueQuery.isLoading) {
@@ -35,9 +35,12 @@ export const IssueView = () => {
       {/* Primer comentario */}
       <IssueComment issue={issueQuery?.data} />
 
+      {commentsQuery.isLoading && (<LoadingIcon />)}
+
       {/* Comentario de otros */}
-      {/* <IssueComment body={ comment2 } />
-      <IssueComment body={ comment3 } /> */}
+      {commentsQuery.data?.map(issue => (
+        <IssueComment key={issue.id} issue={issue} />
+      ))}
     </div>
   )
 }
